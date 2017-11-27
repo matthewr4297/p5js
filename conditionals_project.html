@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>p5js Template</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.3/p5.js"></script>
+    
+    <script>
+            var linedis=300 
+            var game
+            var sec
+          
+            game=0
+        function setup() {
+            createCanvas(600,600);
+
+            
+        }
+
+       function draw() {
+        /*background(0,0,0)     Unused Title for Project
+        textSize(65)
+        textAlign(CENTER)
+        fill(255)
+        text("The Game",300,200)
+        textSize(25)
+        text("Press space to begin",300,350)
+        */
+         
+         if(keyCode == LEFT_ARROW){ //Makes it so when you click the left arrow, it moves the line to the left
+            linedis -= 20
+            constrain(linedis,0,600)
+         }
+        if(keyCode == RIGHT_ARROW){ //Makes it so when you click the right arrow, it moves the line to the right
+            linedis += 20
+            constrain(linedis,0,600)
+        }
+       clear()
+        background(200)
+        game=1
+        
+        if(game=1){                     //when the game starts, it uses the game variable to know that the game has started
+        line(linedis,0,linedis,600)
+        }
+       
+       }
+        
+            
+    </script>
+</head>
+
+ <body>
+    <div id="code" class="container-fluid">
+        <script src="https://gist-it.appspot.com/github/matthewr4297/p5js/blob/master/conditionals_project.html?footer=0"></script>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(window).bind("load", function() {
+            $('#code').before($('#defaultCanvas0').remove());
+        });
+    </script>
+</body>
+
+
+</html>
