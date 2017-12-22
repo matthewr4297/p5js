@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>Pong</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/p5.js"></script>
+    <script>
+    //States all the variables that are being declared in the start of the script
+        var ballX;
+        var ballY;
+        var ballSpeedX = 0;
+        var ballSpeedY = 0;
+        var paddleHeight = 30;
+        var paddleLength = 200;
+        var life=3;
+        var activeG=0;
+        var score=0;
+
+        function setup() {
+            createCanvas(500,500);
+            noCursor();
+            //Makes the ball at a random coordinate everytime, but will not go outside the playing field.
+            ballX = random(width);
+            ballY = random(height/2);
+            score=0 //This starts the score at 0
+        }
+
+        function draw() {
+            //Declares any function that needs to be repeated over and over
+            background(0);
+            moveBall();
+            checkCollide();
+            drawPaddle();
+            drawBall();
+            Visual(10,255,0,0,100,0)
+            textSize(20)
+            fill(255)
+            //Whenever the Ball is not being played, the score will not go up, but will not reset
+            text("Lives: "+str(life), 50,50)
+           text("Score: "+str(round(score)),50,75)
+             if(ballSpeedX==0){
+                 ScoreAdd(0)
+             }
+                else{
+                    //If the ball is being played, the score will go up
+                    ScoreAdd(0.1)
+                }
+             
+        }
+      function mousePressed(){
+          //The game will not start untill the mouse has been clicked
+        if(ballSpeedX==0){
+            ballSpeedX = 5
+            ballSpeedY = 5
+        
+            
+        }
+        }
+
+        function moveBall() {
+            //When the ball is moving, this determinshow the ball will move.
+            ballX = ballX + ballSpeedX;
+            ballY = ballY + ballSpeedY;
+
+            console.log("ballSpeedX: " + ballSpeedX + 
+                        ", ballSpeedY: " + ballSpeedY);
+        }
+
+        function checkCollide() {
+            //This function is the most important in the whole script since this holds the physics for the ball
+            //that way the ball will not move just straight up and down
+            if (ballX < 0 || ballX > width) {
+                ballSpeedX = ballSpeedX * -1;
+            }
+            if (ballY < 0) {
+                ballSpeedY = ballSpeedY * -1;
+            }
+            //When the ball has hit the paddle, this tells the code to move the ball up at a random direction.
+            if (ballY > height - paddleHeight) {
+                if (ballX > mouseX && ballX < mouseX + 200) {
+                    ballSpeedY = ballSpeedY * -1;
+                    ballSpeedY = ballSpeedY * 1.1;
+                    ballSpeedX = ballSpeedX * 1.1;
+                    
+                }
+                //When you have no more lives, this tells the code to stop running
+                  else if (life<=0){
+                        noLoop()
+                    }
+                    //If you have more lives avalible, the game will continue, but you will have one less life
+                    else {
+                        life=life-1;
+                        ballX=random(width);
+                        ballY=random(height/2);
+                        ballSpeedX=0;
+                        ballSpeedY=0;
+                       paddleLength=200;
+                      
+                }
+            }
+        }
+        //Makes the ball appear on the screen
+        function drawBall() {
+            noStroke();
+            ellipse(ballX, ballY, 20, 20);
+        }
+        //Makes the paddle appear on the screen
+        function drawPaddle() {
+            strokeWeight(4);
+            rect(mouseX, height - paddleHeight - 4, paddleLength, paddleHeight);
+        }
+        //This function makes it easy to add points to the player at a constant rate.It also makes it 
+        //so the score will not reset after lives have been lost
+        function ScoreAdd(add){
+            score += add
+        }
+        //Something else that I tried to impliment but eventually got scrapped due to time constraints
+        function Visual(setSpeed,x,y,r,g,b,opacity){
+            if(ballSpeedX||ballSpeedY>=setSpeed){
+                fill(r,g,b,75)
+                rect(x,y,500,100)
+            }
+        }
+    </script>
+</head>
+
+<body>
+<form><input TYPE="button" onClick="history.go(0)" value="Reset"></form>
+    <div id="code" class="container-fluid">
+        <script src="https://gist-it.appspot.com/github/matthewr4297/p5js/blob/gh-pages/pongremix.html?footer=0"></script>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(window).bind("load", function() {
+            $('#code').before($('#defaultCanvas0').remove());
+        });
+    </script>
+</body>
+
+</html>
