@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>p5js Template</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.3/p5.js"></script>
+    <script>
+    //Sets up all the functions for this program
+   
+    var score
+    var tin=[];
+    var r
+    var g
+    var b
+        function setup() {
+            createCanvas(600,600);
+            for (var i=0; i<12;i++){
+                tin.push(new Tin(random(600),random(600)))
+            
+            }
+            //Sets random colors for the tin objects for something to pop
+        r=random(255)
+            g=random(255)
+            b=random(255)     
+        }
+        
+        function draw() {
+            background(0)
+            
+            //
+            for (var i = 0; i<tin.length; i++){
+                 tin[i].checkCollide()
+                tin[i].move();
+                tin[i].display();
+                
+               
+            }
+       // for (var i = 0;i<tin.length;i++){
+           // if(Tin(xval) > mouseX &&
+              // Tin(yval) < mouseY){
+              //  noLoop()
+           // }
+        //}
+        fill(255)
+        rect(mouseX,mouseY,50,50)
+        }
+       
+        function Tin(xval,yval){
+            this.x=xval
+            this.y=yval
+        
+        this.move = function(){
+            this.y+= -2
+            
+            if(this.y < 0){
+                this.y=600
+                this.x=random(600)
+            }
+        }
+        this.display =function(){
+            fill(r,g,b);
+            rect(this.x, this.y, 55, 100, 20);
+
+        }
+
+        this.checkCollide = function (){
+        if(mouseX > this.x && 
+        mouseX < this.x + 55 &&
+        mouseY > this.y && 
+        mouseY < this.y + 100 //&& 
+        //mouseX-50 < this.y+50
+        )
+          {
+                noLoop()
+                
+            }
+        }
+        }
+        
+        
+    </script>
+</head>
+
+<body>
+<form><input TYPE="button" onClick="history.go(0)" value="Reset"></form>
+    <div id="code" class="container-fluid">
+        <script src="https://gist-it.appspot.com/github/matthewr4297/p5js/blob/master/p5finalproject.html?footer=0"></script>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(window).bind("load", function() {
+            $('#code').before($('#defaultCanvas0').remove());
+        });
+    </script>
+</body>
+
+
+
+</html>
